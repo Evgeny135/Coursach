@@ -19,6 +19,7 @@ namespace Coursach
         private SqlDataAdapter adapter;
 
         private Dictionary<string, int> typeDocumentDictionary = new Dictionary<string, int>();
+        private Dictionary<string, int> disciplineDictionary = new Dictionary<string, int>();
         public FormAdmin()
         {
             InitializeComponent();
@@ -41,6 +42,8 @@ namespace Coursach
             loadAllExams();
 
             loadNumberGroup();
+
+            loadNameDiscipline();
 
             cbTypeStatement.SelectedIndex = 0;
         }
@@ -168,6 +171,26 @@ namespace Coursach
             cbNumberGroup.SelectedIndex = 0;
         }
 
+        private void loadNameDiscipline()
+        {
+            SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"SELECT ID, Название
+                                FROM Дисциплины";
+
+
+            conn.Open();
+
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int idTypeDocument = Convert.ToInt32(reader["ID"]);
+                disciplineDictionary[reader["Название"].ToString()] = idTypeDocument;
+            }
+
+            conn.Close();
+        }
+
         private void cbTypeStatement_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbTypeStatement.SelectedItem.ToString() != "Все") {
@@ -284,7 +307,47 @@ namespace Coursach
 
         private void btnEditExam_Click(object sender, EventArgs e)
         {
+            string dateString = dgExams.CurrentRow.Cells[6].Value.ToString();
 
+            DateTime examDate;
+            bool isValidDate = DateTime.TryParse(dateString, out examDate);
+
+            FormEditExam form = new FormEditExam(dgExams.CurrentRow.Cells[5].Value.ToString(), examDate, dgExams.CurrentRow.Cells[7].Value.ToString(), dgExams.CurrentRow.Cells[0].Value.ToString());
+            form.Show();
+            form.FormClosed += new FormClosedEventHandler(closeForms);
+        }
+
+        private void btnDeleteExam_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+               "Удалить запись о экзамене " + dgExams.CurrentRow.Cells[1].Value.ToString() + " " + dgExams.CurrentRow.Cells[4].Value.ToString() + " " +
+               dgExams.CurrentRow.Cells[5].Value.ToString() + " ?",
+               "Удалить ?",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Information,
+               MessageBoxDefaultButton.Button1,
+               MessageBoxOptions.DefaultDesktopOnly);
+
+            if (result == DialogResult.Yes)
+            {
+                SqlCommand cmd = conn.CreateCommand();
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "DeleteExam";
+
+                cmd.Parameters.AddWithValue("@student", dgExams.CurrentRow.Cells[0].Value.ToString());
+                cmd.Parameters.AddWithValue("@discipline", disciplineDictionary[dgExams.CurrentRow.Cells[5].Value.ToString()]);
+                cmd.Parameters.AddWithValue("@date", dgExams.CurrentRow.Cells[6].Value.ToString());
+
+                conn.Open();
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                loadAllExams();
+                cbNumberGroup.SelectedIndex = 0;
+            }
         }
     }
 }

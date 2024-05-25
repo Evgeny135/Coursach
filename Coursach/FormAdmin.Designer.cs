@@ -38,11 +38,12 @@
             this.dgDocument = new System.Windows.Forms.DataGridView();
             this.dgStatements = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnEditExam = new System.Windows.Forms.Button();
             this.btnAddExam = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cbNumberGroup = new System.Windows.Forms.ComboBox();
             this.dgExams = new System.Windows.Forms.DataGridView();
-            this.btnEditExam = new System.Windows.Forms.Button();
+            this.btnDeleteExam = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgDocument)).BeginInit();
@@ -146,6 +147,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnDeleteExam);
             this.tabPage2.Controls.Add(this.btnEditExam);
             this.tabPage2.Controls.Add(this.btnAddExam);
             this.tabPage2.Controls.Add(this.label3);
@@ -159,6 +161,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Экзамены";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnEditExam
+            // 
+            this.btnEditExam.Location = new System.Drawing.Point(433, 7);
+            this.btnEditExam.Name = "btnEditExam";
+            this.btnEditExam.Size = new System.Drawing.Size(156, 27);
+            this.btnEditExam.TabIndex = 4;
+            this.btnEditExam.Text = "Изменить экзамен";
+            this.btnEditExam.UseVisualStyleBackColor = true;
+            this.btnEditExam.Click += new System.EventHandler(this.btnEditExam_Click);
             // 
             // btnAddExam
             // 
@@ -197,15 +209,15 @@
             this.dgExams.Size = new System.Drawing.Size(1260, 476);
             this.dgExams.TabIndex = 0;
             // 
-            // btnEditExam
+            // btnDeleteExam
             // 
-            this.btnEditExam.Location = new System.Drawing.Point(433, 7);
-            this.btnEditExam.Name = "btnEditExam";
-            this.btnEditExam.Size = new System.Drawing.Size(156, 27);
-            this.btnEditExam.TabIndex = 4;
-            this.btnEditExam.Text = "Изменить экзамен";
-            this.btnEditExam.UseVisualStyleBackColor = true;
-            this.btnEditExam.Click += new System.EventHandler(this.btnEditExam_Click);
+            this.btnDeleteExam.Location = new System.Drawing.Point(615, 7);
+            this.btnDeleteExam.Name = "btnDeleteExam";
+            this.btnDeleteExam.Size = new System.Drawing.Size(156, 27);
+            this.btnDeleteExam.TabIndex = 5;
+            this.btnDeleteExam.Text = "Удалить экзамен";
+            this.btnDeleteExam.UseVisualStyleBackColor = true;
+            this.btnDeleteExam.Click += new System.EventHandler(this.btnDeleteExam_Click);
             // 
             // FormAdmin
             // 
@@ -248,5 +260,6 @@
         private System.Windows.Forms.ComboBox cbNumberGroup;
         private System.Windows.Forms.Button btnAddExam;
         private System.Windows.Forms.Button btnEditExam;
+        private System.Windows.Forms.Button btnDeleteExam;
     }
 }

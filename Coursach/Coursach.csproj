@@ -64,6 +64,12 @@
     <Compile Include="FormEditDocument.Designer.cs">
       <DependentUpon>FormEditDocument.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditExam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditExam.Designer.cs">
+      <DependentUpon>FormEditExam.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditDocument.resx">
       <DependentUpon>FormEditDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditExam.resx">
+      <DependentUpon>FormEditExam.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
