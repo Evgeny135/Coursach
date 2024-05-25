@@ -44,6 +44,7 @@
             this.brnLoginAdmin.TabIndex = 0;
             this.brnLoginAdmin.Text = "Войти как сотрудник деканата";
             this.brnLoginAdmin.UseVisualStyleBackColor = true;
+            this.brnLoginAdmin.Click += new System.EventHandler(this.brnLoginAdmin_Click);
             // 
             // btnLoginStudent
             // 

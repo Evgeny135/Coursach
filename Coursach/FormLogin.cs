@@ -23,6 +23,8 @@ namespace Coursach
             conn.ConnectionString = "Data Source=.\\SQLEXPRESS;"
            + "Initial Catalog=Деканат;"
           + "User ID=sa;" + "Password=sa;";
+
+            cbStudentLogin.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void btnLoginStudent_Click(object sender, EventArgs e)
@@ -30,6 +32,8 @@ namespace Coursach
             cbStudentLogin.Visible = true;
             btnLoginStudentAccept.Visible = true;
             btnStudentLoginCancel.Visible = true;
+
+            cbStudentLogin.Items.Clear();
 
             SqlCommand cmd = conn.CreateCommand();
 
@@ -83,6 +87,19 @@ namespace Coursach
         private void closeForms(object sender, FormClosedEventArgs e)
         {
             this.Visible = true;
+        }
+
+        private void brnLoginAdmin_Click(object sender, EventArgs e)
+        {
+            FormAdmin form = new FormAdmin();
+            this.Visible = false;
+            form.Show();
+            form.FormClosed += new FormClosedEventHandler(closeForms);
+        }
+
+        private void Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
