@@ -157,29 +157,37 @@ namespace Coursach
 
         private int addNewStatement()
         {
-            SqlCommand cmd = conn.CreateCommand();
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "AddNewStatement";
-
-            cmd.Parameters.AddWithValue("@Student", StudentId);
-            cmd.Parameters.AddWithValue("@Type", statementDictionary[cbTypeStatementStudent.SelectedItem.ToString()]);
-
-            SqlParameter outputIdParam = new SqlParameter("@NewId", SqlDbType.Int)
+            if (cbTypeStatementStudent.SelectedItem != null)
             {
-                Direction = ParameterDirection.Output
-            };
-            cmd.Parameters.Add(outputIdParam);
+                SqlCommand cmd = conn.CreateCommand();
 
-            conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "AddNewStatement";
 
-            cmd.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@Student", StudentId);
+                cmd.Parameters.AddWithValue("@Type", statementDictionary[cbTypeStatementStudent.SelectedItem.ToString()]);
 
-            int newId = (int)outputIdParam.Value;
+                SqlParameter outputIdParam = new SqlParameter("@NewId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(outputIdParam);
 
-            conn.Close();
+                conn.Open();
 
-            return newId;
+                cmd.ExecuteNonQuery();
+
+                int newId = (int)outputIdParam.Value;
+
+                conn.Close();
+
+                return newId;
+            }
+            else
+            {
+                MessageBox.Show("Выберите тип заявления");
+                return -1;
+            }
         }
 
         private void addExistingDocumentByStatement(int idStatement)
@@ -190,10 +198,10 @@ namespace Coursach
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "AddDocumentByStatement";
 
-            conn.Open();
 
             foreach (string document in checkListBoxDocument.CheckedItems) {
 
+                conn.Open();
 
                 Document findDocument = new Document();
 
@@ -208,16 +216,16 @@ namespace Coursach
                         break;
                     }
                 }
-
+                cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@Заявление", idStatement);
                 cmd.Parameters.AddWithValue("@Документ", findDocument.Id);
                 cmd.Parameters.AddWithValue("@Название", findDocument.Description);
                 cmd.Parameters.AddWithValue("@Ссылка", findDocument.Url);
 
                 cmd.ExecuteNonQuery();
-            }
 
-            conn.Close();
+                conn.Close();
+            }
         }
 
         private void addNewDocumentsByStatement(int idStatement)
@@ -245,9 +253,12 @@ namespace Coursach
         private void btnAddNewStatement_Click(object sender, EventArgs e)
         {
             int id = addNewStatement();
-            addExistingDocumentByStatement(id);
-            addNewDocumentsByStatement(id);
-            this.Close();
+            if (id != -1)
+            {
+                addExistingDocumentByStatement(id);
+                addNewDocumentsByStatement(id);
+                this.Close();
+            }
         }
 
         private void btnAddStatementCancel_Click(object sender, EventArgs e)

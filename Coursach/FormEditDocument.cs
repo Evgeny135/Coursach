@@ -114,8 +114,20 @@ namespace Coursach
             cmd.Parameters.AddWithValue("@curType", oldType); 
             cmd.Parameters.AddWithValue("@newtype", typeDocumentDictionary[cbTypeDocument.SelectedItem.ToString()]);
             cmd.Parameters.AddWithValue("@oldName", name);
-            cmd.Parameters.AddWithValue("@newName", textBoxNameEvent.Text);
-            cmd.Parameters.AddWithValue("@url", textBoxUrl.Text.ToString());
+            if (textBoxNameEvent.Text == "" || textBoxNameEvent.Text == null)
+            {
+                cmd.Parameters.AddWithValue("@newName", name);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@newName", textBoxNameEvent.Text);
+            }
+            if (textBoxUrl.Text == "" || textBoxUrl.Text == null) {
+                cmd.Parameters.AddWithValue("@url", url);
+            }
+            else {
+                cmd.Parameters.AddWithValue("@url", textBoxUrl.Text.ToString()); 
+            }
 
             conn.Open();
 

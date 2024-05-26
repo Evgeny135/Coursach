@@ -171,7 +171,7 @@ namespace Coursach
                     documents.Add(row.Cells[0].Value.ToString() + " " + row.Cells[1].Value.ToString());
                 }
             }
-            if (dgStatementStudent.CurrentRow != null && dgStatementsDocument.CurrentRow != null && dgStatementStudent.CurrentRow.Cells[0].Value != null)
+            if (dgStatementStudent.CurrentRow != null  && dgStatementStudent.CurrentRow.Cells[0].Value != null)
             {
                 if (!dgStatementStudent.CurrentRow.IsNewRow)
                 {
@@ -207,12 +207,12 @@ namespace Coursach
                 }
                 else
                 {
-                    MessageBox.Show("One or more required fields are empty. Please select a valid row.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Ошибка.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("No row selected. Please select a valid row.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не выбрано заявление.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }

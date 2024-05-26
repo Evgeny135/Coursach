@@ -32,6 +32,7 @@ namespace Coursach
             cbNumberGroup.DropDownStyle = ComboBoxStyle.DropDownList;
             dgDocument.ReadOnly = true;
             dgStatements.MultiSelect = false;
+            dgExams.MultiSelect = false;
             dgExams.ReadOnly = true;
 
 

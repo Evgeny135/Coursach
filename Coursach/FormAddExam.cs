@@ -128,32 +128,45 @@ namespace Coursach
 
         private void btnAddNewExam_Click(object sender, EventArgs e)
         {
-
-            SqlCommand cmd = conn.CreateCommand();
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "AddExams";
-
-            foreach (DataGridViewRow row in dgStudent.Rows)
+            if (cbNumberGroup.SelectedItem != null && cbDiscipline.SelectedItem != null)
             {
-                if (row.IsNewRow) continue; // Пропустить пустую строку для добавления новой записи
+                SqlCommand cmd = conn.CreateCommand();
 
-                conn.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "AddExams";
 
-                int id = Convert.ToInt32(row.Cells["ID"].Value);
-                string grade = row.Cells["Оценка"].Value?.ToString(); // Возможно, значение будет null
+                foreach (DataGridViewRow row in dgStudent.Rows)
+                {
+                    if (row.IsNewRow) continue; // Пропустить пустую строку для добавления новой записи
+                    if (row.Cells["Оценка"].Value != null)
+                    {
 
-                cmd.Parameters.AddWithValue("@student", id);
-                cmd.Parameters.AddWithValue("@disciplineId", disciplineDictionary[cbDiscipline.SelectedItem.ToString()]);
-                cmd.Parameters.AddWithValue("@date", calendar.SelectionStart.ToShortDateString());
-                cmd.Parameters.AddWithValue("@mark", grade);
+                        conn.Open();
 
-                cmd.ExecuteNonQuery();
+                        int id = Convert.ToInt32(row.Cells["ID"].Value);
+                        string grade = row.Cells["Оценка"].Value?.ToString(); // Возможно, значение будет null
 
-                conn.Close();
+                        cmd.Parameters.AddWithValue("@student", id);
+                        cmd.Parameters.AddWithValue("@disciplineId", disciplineDictionary[cbDiscipline.SelectedItem.ToString()]);
+                        cmd.Parameters.AddWithValue("@date", calendar.SelectionStart.ToShortDateString());
+                        cmd.Parameters.AddWithValue("@mark", grade);
+
+                        cmd.ExecuteNonQuery();
+
+                        conn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Выставите оценки.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+
+                this.Close();
             }
-
-            this.Close();
+            else
+            {
+                MessageBox.Show("Пожалуйста, заполните номер группы и дисциплины.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnCancelAdd_Click(object sender, EventArgs e)

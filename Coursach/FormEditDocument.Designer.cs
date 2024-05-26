@@ -80,7 +80,7 @@
             this.cbTypeDocument.FormattingEnabled = true;
             this.cbTypeDocument.Location = new System.Drawing.Point(75, 55);
             this.cbTypeDocument.Name = "cbTypeDocument";
-            this.cbTypeDocument.Size = new System.Drawing.Size(188, 24);
+            this.cbTypeDocument.Size = new System.Drawing.Size(268, 24);
             this.cbTypeDocument.TabIndex = 29;
             // 
             // label2
