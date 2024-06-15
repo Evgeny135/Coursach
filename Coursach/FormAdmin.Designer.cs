@@ -38,12 +38,12 @@
             this.dgDocument = new System.Windows.Forms.DataGridView();
             this.dgStatements = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnDeleteExam = new System.Windows.Forms.Button();
             this.btnEditExam = new System.Windows.Forms.Button();
             this.btnAddExam = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cbNumberGroup = new System.Windows.Forms.ComboBox();
             this.dgExams = new System.Windows.Forms.DataGridView();
-            this.btnDeleteExam = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgDocument)).BeginInit();
@@ -97,6 +97,7 @@
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(100, 22);
             this.textBoxCount.TabIndex = 5;
+            this.textBoxCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // btnSetSalary
             // 
@@ -162,6 +163,16 @@
             this.tabPage2.Text = "Экзамены";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnDeleteExam
+            // 
+            this.btnDeleteExam.Location = new System.Drawing.Point(615, 7);
+            this.btnDeleteExam.Name = "btnDeleteExam";
+            this.btnDeleteExam.Size = new System.Drawing.Size(156, 27);
+            this.btnDeleteExam.TabIndex = 5;
+            this.btnDeleteExam.Text = "Удалить экзамен";
+            this.btnDeleteExam.UseVisualStyleBackColor = true;
+            this.btnDeleteExam.Click += new System.EventHandler(this.btnDeleteExam_Click);
+            // 
             // btnEditExam
             // 
             this.btnEditExam.Location = new System.Drawing.Point(433, 7);
@@ -208,16 +219,6 @@
             this.dgExams.Name = "dgExams";
             this.dgExams.Size = new System.Drawing.Size(1260, 476);
             this.dgExams.TabIndex = 0;
-            // 
-            // btnDeleteExam
-            // 
-            this.btnDeleteExam.Location = new System.Drawing.Point(615, 7);
-            this.btnDeleteExam.Name = "btnDeleteExam";
-            this.btnDeleteExam.Size = new System.Drawing.Size(156, 27);
-            this.btnDeleteExam.TabIndex = 5;
-            this.btnDeleteExam.Text = "Удалить экзамен";
-            this.btnDeleteExam.UseVisualStyleBackColor = true;
-            this.btnDeleteExam.Click += new System.EventHandler(this.btnDeleteExam_Click);
             // 
             // FormAdmin
             // 

@@ -222,38 +222,50 @@ namespace Coursach
             }
         }
 
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Проверяем, является ли введенный символ цифрой
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Отклоняем ввод
+            }
+        }
+
         private void btnSetSalary_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(textBoxCount.Text.ToString()) && Regex.IsMatch(textBoxCount.Text,"\\d+")) {
-                if (cbTypeStatement.SelectedItem.ToString() != "Все")
+            if (!string.IsNullOrWhiteSpace(textBoxCount.Text.ToString()) && Regex.IsMatch(textBoxCount.Text, "\\d+"))
+            {
+                if (Convert.ToInt32(textBoxCount.Text) >= 1)
                 {
-                    SqlCommand cmd = conn.CreateCommand();
+                    if (cbTypeStatement.SelectedItem.ToString() != "Все")
+                    {
+                        SqlCommand cmd = conn.CreateCommand();
 
 
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "SetSalary";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "SetSalary";
 
-                    cmd.Parameters.AddWithValue("@TypeState", typeDocumentDictionary[cbTypeStatement.SelectedItem.ToString()]);
-                    cmd.Parameters.AddWithValue("@count", textBoxCount.Text);
-    
-                    conn.Open();
+                        cmd.Parameters.AddWithValue("@TypeState", typeDocumentDictionary[cbTypeStatement.SelectedItem.ToString()]);
+                        cmd.Parameters.AddWithValue("@count", textBoxCount.Text);
 
-                    cmd.ExecuteNonQuery();
+                        conn.Open();
 
-                    conn.Close();
+                        cmd.ExecuteNonQuery();
 
-                    LoadAllStatements();
+                        conn.Close();
 
-                    loadTypeStatements();
+                        LoadAllStatements();
 
-                    cbTypeStatement.SelectedIndex = 0;
+                        loadTypeStatements();
+
+                        cbTypeStatement.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Нельзя провести конкурс, выберите типы заявлений.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Нельзя провести конкурс, выберите типы заявлений.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
+            }else
             {
                 MessageBox.Show("Введите количество мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
